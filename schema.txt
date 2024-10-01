@@ -29,6 +29,11 @@ CREATE TABLE nameprof (
     nameprof character varying(100) NOT NULL
 );
 
+INSERT INTO nameprof (nameid, nameprof) VALUES
+(0, 'Врачи'),
+(1, 'Преподаватели ВО'),
+(2, 'Научные сотрудники');
+
 
 INSERT INTO inflation (infid, inflation, infdata) VALUES
 (0, 28.93, '2000-01-01 00:00:00'),
