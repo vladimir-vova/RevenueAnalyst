@@ -22,3 +22,9 @@ CREATE TABLE profession (
     salary numeric NOT NULL,
 	salarydata timestamp without time zone NOT NULL
 );
+
+INSERT INTO inflation (infid, inflation, starttime) VALUES
+(0, 10000, '2012-07-01 00:00:00'),
+(0, 10000, '2012-07-01 00:00:00'),
+(0, 10000, '2012-07-01 00:00:00'),
+(0, 10000, '2012-07-01 00:00:00');
