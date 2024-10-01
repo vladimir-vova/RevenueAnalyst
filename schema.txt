@@ -18,9 +18,14 @@ CREATE TABLE inflation (
 
 CREATE TABLE profession (
     profid integer NOT NULL,
-    name character varying(100) NOT NULL,
+    profnameid integer NOT NULL,
     salary numeric NOT NULL,
 	salarydata timestamp without time zone NOT NULL
+);
+
+CREATE TABLE nameprof (
+    nameid integer NOT NULL,
+    nameprof character varying(100) NOT NULL
 );
 
 
