@@ -94,3 +94,11 @@ if dataProf is not None:
     newDf['true_salary'] = newDf['salary'] * 1000
     newDf['newSalary'] = newDf['true_salary'] * (1 + newDf['inflation'] / 100)
     newDf['new_salary'] = pd.concat([pd.Series(newDf.iloc[0,4]),newDf[:-1]['newSalary']], ignore_index = True)
+    # График
+    fig, axes = plt.subplots(1, 1, figsize=(15, 5))
+    sns.lineplot(data=newDf, x='year', y='true_salary', label="Средняя зарплата", ax=axes)
+    axes = sns.lineplot(data=newDf, x='year', y='new_salary', label="Зарплата по инфляции", ax=axes)
+    axes.set_xlabel('Год', fontsize=25)
+    axes.set_ylabel('Зарплата', fontsize=25)
+    plt.legend()
+    st.pyplot(plt)
