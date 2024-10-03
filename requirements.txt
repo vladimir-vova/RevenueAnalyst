@@ -83,8 +83,8 @@ prometheus_client==0.21.0
 prompt_toolkit==3.0.48
 protobuf==5.28.2
 psutil==6.0.0
-psycopg2==2.9.9
 psycopg2-binary==2.9.9
+psycopg2==2.9.9
 pure_eval==0.2.3
 pyarrow==17.0.0
 pycparser==2.22
