@@ -23,3 +23,13 @@ def get_conn():
     return connection
 
 connection = get_conn()
+
+cursor = connection.cursor()
+query = """select to_char(i.infdata, 'YYYY') as year, round(avg(i.inflation), 2) as inflation 
+from cd.inflation i 
+group by to_char(i.infdata, 'YYYY')
+order by to_char(i.infdata, 'YYYY');"""
+cursor.execute(query)
+data = cursor.fetchall()
+cursor.close()
+InfDf = pd.DataFrame(data, columns = ['years', 'inflation'])
