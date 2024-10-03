@@ -44,3 +44,13 @@ axes.set_ylabel('Инфляция', fontsize=25)
 plt.grid(True)
 plt.tight_layout()
 st.pyplot(plt)
+
+cursor = connection.cursor()
+query = """select * 
+from cd.nameprof n;"""
+cursor.execute(query)
+data = cursor.fetchall()
+cursor.close()
+profName = pd.DataFrame(data = data, columns = ['nameid', 'name'])
+
+# st.write(tuple(profName['name']))
