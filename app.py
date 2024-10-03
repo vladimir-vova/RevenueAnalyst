@@ -53,4 +53,34 @@ data = cursor.fetchall()
 cursor.close()
 profName = pd.DataFrame(data = data, columns = ['nameid', 'name'])
 
-# st.write(tuple(profName['name']))
+listName = tuple(profName['name'])
+
+def get_salary(name):
+    connection = get_conn()
+    cursor = connection.cursor()
+    query = "select p.profid, n.nameprof, p.salary, to_char(p.salarydata, 'YYYY') from cd.profession p join cd.nameprof n on p.profnameid = n.nameid where n.nameprof = %s;"
+    cursor.execute(query, (name, ))
+    data = cursor.fetchall()
+    cursor.close()
+    dataProf = pd.DataFrame(data = data, columns = ['nameid', 'nameprof', 'salary', 'years'])
+    return dataProf
+
+option = st.selectbox(
+    "Посмотреть зарплату",
+    listName,
+    index=None,
+    placeholder="Выберите профессию",
+)
+
+if option is not None:
+    st.write(f'Зарплата: {option}')
+    dataProf = get_salary(option)
+    dataProf['true_salary'] = dataProf['salary'] * 1000
+    plt.figure(figsize = (15,5))
+    axes = sns.barplot(data=dataProf, x = 'years', y = 'true_salary')
+    plt.title('График зарплат', fontsize = 30)
+    axes.set_xlabel('Год', fontsize = 25)
+    axes.set_ylabel('Зарплата', fontsize = 25)
+    plt.tight_layout()
+    st.pyplot(plt)
+    
