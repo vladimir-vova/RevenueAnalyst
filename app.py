@@ -72,6 +72,8 @@ option = st.selectbox(
     placeholder="Выберите профессию",
 )
 
+dataProf = None
+
 if option is not None:
     st.write(f'Зарплата: {option}')
     dataProf = get_salary(option)
@@ -83,4 +85,12 @@ if option is not None:
     axes.set_ylabel('Зарплата', fontsize = 25)
     plt.tight_layout()
     st.pyplot(plt)
-    
+
+if dataProf is not None:
+    st.subheader('График зарплат и инфляции в одном графике')
+    InfDf['year'] = (pd.to_datetime(InfDf['years']) - pd.DateOffset(years=1)).dt.year
+    dataProf['year'] = (pd.to_datetime(dataProf['years'])).dt.year
+    newDf = pd.merge(InfDf[['inflation','year']], dataProf[['nameprof','salary','year']], how = 'inner', on = 'year')
+    newDf['true_salary'] = newDf['salary'] * 1000
+    newDf['newSalary'] = newDf['true_salary'] * (1 + newDf['inflation'] / 100)
+    newDf['new_salary'] = pd.concat([pd.Series(newDf.iloc[0,4]),newDf[:-1]['newSalary']], ignore_index = True)
